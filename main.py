@@ -1,3 +1,6 @@
+import time
+import os
+
 class Game(object):
 
     def __init__(self, player_name):
@@ -41,7 +44,28 @@ class Game(object):
         print "Finally they stop."
         print ""
         print "Hello" + " " + player_name
+        print "You're about to face your final challenge."
+        print "Three riddles, you have a minute for each."
+        print "Let's begin."
+        print "Are you ready?"
 
+        self.begin_riddle = raw_input("Type 'y' if you are: ")
+        while self.begin_riddle.lower() != "y":
+            print "Are you ready?"
+            self.begin_riddle = raw_input("Type 'y' if you are: ")
+
+        print ""
+        print "First riddle: "
+        print ""
+        print "What goes around the world but stays in a corner?"
+
+        start = time.time()
+        elapsed = 0
+        while elapsed < 30:
+            elapsed = time.time() - start
+            print "%02d" % elapsed
+            time.sleep(1)
+           
 
 class Room(object):
 
