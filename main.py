@@ -1,5 +1,4 @@
 import time
-import os
 
 class Game(object):
 
@@ -65,7 +64,7 @@ class Game(object):
             elapsed = time.time() - start
             print "%02d" % elapsed
             time.sleep(1)
-           
+
 
 class Room(object):
 
