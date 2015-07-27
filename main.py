@@ -1,5 +1,3 @@
-import time
-
 class Game(object):
 
     def __init__(self, player_name):
@@ -45,7 +43,7 @@ class Game(object):
         print "Hello" + " " + player_name
         print "You're about to face your final challenge."
         print "Three riddles, you have a minute for each."
-        print "Let's begin."
+        print "To use a hint gun, type 'hint', to use a skip gun, type 'skip'."
         print "Are you ready?"
 
         self.begin_riddle = raw_input("Type 'y' if you are: ")
@@ -58,13 +56,20 @@ class Game(object):
         print ""
         print "What goes around the world but stays in a corner?"
 
-        start = time.time()
-        elapsed = 0
-        while elapsed < 30:
-            elapsed = time.time() - start
-            print "%02d" % elapsed
-            time.sleep(1)
+        self.answer_first = raw_input("Your answer: ")
+        while self.answer_first.lower() != "stamp":
+            if self.answer_first.lower() == "hint" and "Hint rifle" in Player.inventory:
+                Player.inventory.remove("Hint rifle")
+                print "Hint: It's required to send mail."
 
+            else:
+                print "Incorrect answer: "
+                self.answer_first = raw_input("Your answer: ")
+
+        print "Well well, you got the first one right, congratulations."
+        print "Time for a second riddle."
+        print ""
+        
 
 class Room(object):
 
@@ -104,9 +109,6 @@ class Room(object):
 
             if self.armory_unlocks.lower() == "table" or self.armory_unlocks.lower() == "table drawer":
                 self.armory.unlockTableDrawer()
-
-            elif self.armory_unlocks.lower() == "chest":
-                self.armory.unlockChest()
 
             elif self.armory_unlocks.lower() == "door":
                 self.armory.unlockDoor()
@@ -178,8 +180,7 @@ class Armory(Room):
         print "There's note next to her. You pick it up. It reads: 'Get rekt fokin feggit xDDD'."
         print "You can't understand what it means, but it might come in handy later, "
         print "so you put it in your pocket."
-        print "You see a table on your left, a chest in front of you "
-        print "and a door to your right."
+        print "You see a table on your left and a door to your right."
 
     def unlockTableDrawer(self):
         if Armory.unlocked_drawer == False:
@@ -205,32 +206,7 @@ class Armory(Room):
                 Armory.unlocked_drawer = True
 
         else:
-            print "You already unlocked it you fucking twat."
-
-    def unlockChest(self):
-        if Armory.unlocked_chest == False:
-            print "Another lock, another computer screen. You already know how this goes..."
-            print ""
-            print "What kind of tree can you carry in your hand?"
-
-            self.answer_chest = raw_input("Your answer: ")
-            while self.answer_chest != "palm" and self.answer_chest != "palmtree":
-                if self.answer_chest.lower() == "quit":
-                    break
-
-                elif self.answer_chest.lower() != "palm" or self.answer_chest.lower() != "palmtree":
-                    print "Incorrect answer, try again."
-                    self.answer_chest = raw_input("Your answer: ")
-
-            if self.answer_chest.lower() == "palm" or self.answer_chest.lower() == "palmtree":
-                print "The screen flashes 'Correct'. You here a soft beeping sound, chest slowly opens."
-                print "You found a 'Delay mine'. It's rather heavy and looks in good shape."
-                print "Under it there's a message: When the time comes it'll buy you time... you'll need it"
-                Player.inventory.append("Delay mine")
-                Armory.unlocked_chest = True
-
-        else:
-            print "You already unlocked it you mongoloid."
+            print "You already unlocked it."
 
     def unlockDoor(self):
         print "You approach the door, surprisingly, it's locked. A small screen shows yet again."
