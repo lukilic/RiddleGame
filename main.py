@@ -57,7 +57,7 @@ class Game(object):
         print "What goes around the world but stays in a corner?"
 
         self.answer_first = raw_input("Your answer: ")
-        while self.answer_first.lower() != "stamp":
+        while self.answer_first.lower() != "stamp" and self.answer_first != "skip":
             if self.answer_first.lower() == "hint" and "Hint rifle" in Player.inventory:
                 Player.inventory.remove("Hint rifle")
                 print "Hint: It's required to send mail."
@@ -66,10 +66,26 @@ class Game(object):
                 print "Incorrect answer: "
                 self.answer_first = raw_input("Your answer: ")
 
-        print "Well well, you got the first one right, congratulations."
-        print "Time for a second riddle."
-        print ""
-        
+        if self.answer_first.lower() == "skip":
+            Player.inventory.remove("Skip gun")
+            print "Very well, you get a second chance."
+            print ""
+            print "What can you catch but not throw?"
+
+            self.answer_first = raw_input("Your answer: ")
+            while self.answer_first.lower() != "cold":
+                print "Incorrect answer: "
+                self.answer_first = raw_input("Your answer: ")
+
+            print "Well well, you got the first one right, congratulations."
+            print "Time for a second riddle."
+            print ""
+
+        else:
+            print "Well well, you got the first one right, congratulations."
+            print "Time for a second riddle."
+            print ""
+
 
 class Room(object):
 
