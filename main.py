@@ -74,7 +74,7 @@ class Game(object):
 
                 while self.answer.lower() != "cold":
                     print "Incorrect answer: "
-                    self.answer_first = raw_input("Your answer: ")
+                    self.answer = raw_input("Your answer: ")
 
                 self.guessed = True
                 print "Well well, you got the first one right, congratulations."
@@ -119,7 +119,7 @@ class Game(object):
 
                 while self.answer.lower() != "fire":
                     print "Incorrect answer: "
-                    self.answer_first = raw_input("Your answer: ")
+                    self.answer = raw_input("Your answer: ")
 
                 self.guessed = True
                 print "Two in a row? How can this be!?"
@@ -166,7 +166,7 @@ class Game(object):
 
                 while self.answer.lower() != "teapot":
                     print "Incorrect answer: "
-                    self.answer_first = raw_input("Your answer: ")
+                    self.answer = raw_input("Your answer: ")
 
                 self.guessed = True
                 print "It can't be!! You actually won!"
