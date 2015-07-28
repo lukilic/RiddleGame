@@ -24,11 +24,12 @@ class Game(object):
                 print "look around - become aware of your surroundings"
                 print "open - opens stuff"
                 print "i or inv or inventory - shows your inventory"
+                print "quit - let's you quit certain riddles"
                 print "P.S: Once you enter a room, you can't go back!"
                 print ""
 
             elif self.input.lower() == "skip":
-                room.room_name = "Boss room"
+                room.room_name = "Armory"
 
             else:
                 print "Your command makes no sense."
@@ -44,44 +45,50 @@ class Game(object):
         print "You're about to face your final challenge."
         print "Three riddles, you have a minute for each."
         print "To use a hint gun, type 'hint', to use a skip gun, type 'skip'."
-        print "Are you ready?"
-
-        self.begin_riddle = raw_input("Type 'y' if you are: ")
-        while self.begin_riddle.lower() != "y":
-            print "Are you ready?"
-            self.begin_riddle = raw_input("Type 'y' if you are: ")
-
+        print "You may only use one gun per riddle."
+        print "Begin."
         print ""
         print "First riddle: "
         print ""
         print "What goes around the world but stays in a corner?"
 
-        self.answer_first = raw_input("Your answer: ")
-        while self.answer_first.lower() != "stamp" and self.answer_first.lower() != "skip":
-            if self.answer_first.lower() == "hint" and "Hint rifle" in Player.inventory:
+        self.answer = raw_input("Your answer: ")
+        self.guessed = False
+        self.used_item = False
+
+        while self.answer.lower() != "stamp":
+            if self.answer.lower() == "hint" and "Hint rifle" in Player.inventory and self.used_item is False:
+                self.used_item = True
                 Player.inventory.remove("Hint rifle")
                 print "Hint: It's required to send mail."
+                self.answer = raw_input("Your answer: ")
+
+            elif self.answer.lower() == "skip" and "Skip gun" in Player.inventory and self.used_item is False:
+                self.used_item = True
+                Player.inventory.remove("Skip gun")
+                print "Very well, you get a second chance."
+                print ""
+                print "What can you catch but not throw?"
+
+                self.answer = raw_input("Your answer: ")
+
+                while self.answer.lower() != "cold":
+                    print "Incorrect answer: "
+                    self.answer_first = raw_input("Your answer: ")
+
+                self.guessed = True
+                print "Well well, you got the first one right, congratulations."
+                print "Time for a second riddle."
+                print ""
+
+            elif self.guessed is False:
+                print "Incorrect answer: "
+                self.answer = raw_input("Your answer: ")
 
             else:
-                print "Incorrect answer: "
-                self.answer_first = raw_input("Your answer: ")
+                break
 
-        if self.answer_first.lower() == "skip" and "Skip rifle" in Player.inventory:
-            Player.inventory.remove("Skip gun")
-            print "Very well, you get a second chance."
-            print ""
-            print "What can you catch but not throw?"
-
-            self.answer_first = raw_input("Your answer: ")
-            while self.answer_first.lower() != "cold":
-                print "Incorrect answer: "
-                self.answer_first = raw_input("Your answer: ")
-
-            print "Well well, you got the first one right, congratulations."
-            print "Time for a second riddle."
-            print ""
-
-        else:
+        if self.answer.lower() == "stamp":
             print "Well well, you got the first one right, congratulations."
             print "Time for a second riddle."
             print ""
@@ -90,32 +97,43 @@ class Game(object):
         print ""
         print "What invention lets you look right through a wall?"
 
-        self.answer_second = raw_input("Your answer: ")
-        while self.answer_second.lower() != "window" and self.answer_second.lower() != "skip":
-            if self.answer_second.lower() == "hint" and "Hint rifle" in Player.inventory:
+        self.answer = raw_input("Your answer: ")
+        self.guessed = False
+        self.used_item = False
+
+        while self.answer.lower() != "window":
+            if self.answer.lower() == "hint" and "Hint rifle" in Player.inventory and self.used_item is False:
+                self.used_item = True
                 Player.inventory.remove("Hint rifle")
                 print "Hint: It's plural form is making someone a ton of money."
+                self.answer = raw_input("Your answer: ")
+
+            elif self.answer.lower() == "skip" and "Skip gun" in Player.inventory and self.used_item is False:
+                self.used_item = True
+                Player.inventory.remove("Skip gun")
+                print "You're lucky you had that one with you."
+                print ""
+                print "Feed me and I live, yet give me a drink and I die. What am I?"
+
+                self.answer = raw_input("Your answer: ")
+
+                while self.answer.lower() != "fire":
+                    print "Incorrect answer: "
+                    self.answer_first = raw_input("Your answer: ")
+
+                self.guessed = True
+                print "Two in a row? How can this be!?"
+                print "It's time I put an end to this."
+                print ""
+
+            elif self.guessed is False:
+                print "Incorrect answer: "
+                self.answer = raw_input("Your answer: ")
 
             else:
-                print "Incorrect answer: "
-                self.answer_second = raw_input("Your answer: ")
+                break
 
-        if self.answer_first.lower() == "skip" and "Skip rifle" in Player.inventory:
-            Player.inventory.remove("Skip gun")
-            print "You're lucky you had that one with you."
-            print ""
-            print "Feed me and I live, yet give me a drink and I die. What am I?"
-
-            self.answer_second = raw_input("Your answer: ")
-            while self.answer_second.lower() != "fire":
-                print "Incorrect answer: "
-                self.answer_second = raw_input("Your answer: ")
-
-            print "Two in a row? How can this be!?"
-            print "It's time I put an end to this."
-            print ""
-
-        else:
+        if self.answer.lower() == "window":
             print "Two in a row? How can this be!?"
             print "It's time I put an end to this."
             print ""
@@ -126,37 +144,49 @@ class Game(object):
         print ""
         print "What is as light as a feather, but even the world's strongest man couldn't hold it for more than a minute?"
 
-        self.answer_third = raw_input("Your answer: ")
-        while self.answer_third.lower() != "breath" and self.answer_third.lower() != "skip":
-            if self.answer_third.lower() == "hint" and "Hint rifle" in Player.inventory:
+        self.answer = raw_input("Your answer: ")
+        self.guessed = False
+        self.used_item = False
+
+        while self.answer.lower() != "breath":
+            if self.answer.lower() == "hint" and "Hint rifle" in Player.inventory and self.used_item is False:
+                self.used_item = True
                 Player.inventory.remove("Hint rifle")
                 print "Hint: You lose it when you sprint."
+                self.answer = raw_input("Your answer: ")
+
+            elif self.answer.lower() == "skip" and "Skip gun" in Player.inventory and self.used_item is False:
+                self.used_item = True
+                Player.inventory.remove("Skip gun")
+                print "Noo, not the skip gun!."
+                print ""
+                print "What starts with the letter 't', is filled with 't' and ends in 't' ?"
+
+                self.answer = raw_input("Your answer: ")
+
+                while self.answer.lower() != "teapot":
+                    print "Incorrect answer: "
+                    self.answer_first = raw_input("Your answer: ")
+
+                self.guessed = True
+                print "It can't be!! You actually won!"
+                print "Curseeeess!!"
+                print ""
+                print "Congratulations on beating my first game!"
+
+            elif self.guessed is False:
+                print "Incorrect answer: "
+                self.answer = raw_input("Your answer: ")
 
             else:
-                print "Incorrect answer: "
-                self.answer_third = raw_input("Your answer: ")
+                break
 
-        if self.answer_third.lower() == "skip" and "Skip rifle" in Player.inventory:
-            Player.inventory.remove("Skip gun")
-            print "Noo, not the skip gun!."
-            print ""
-            print "What starts with the letter 't', is filled with 't' and ends in 't' ?"
-
-            self.answer_third = raw_input("Your answer: ")
-            while self.answer_third.lower() != "teapot":
-                print "Incorrect answer: "
-                self.answer_third = raw_input("Your answer: ")
-
+        if self.answer.lower() == "breath":
             print "It can't be!! You actually won!"
             print "Curseeeess!!"
             print ""
             print "Congratulations on beating my first game!"
 
-        else:
-            print "It can't be!! You actually won!"
-            print "Curseeeess!!"
-            print ""
-            print "Congratulations on beating my first game!"
 
 class Room(object):
 
@@ -224,6 +254,7 @@ class SecondHall(Room):
         print "Which word in the dictionary is spelled incorrectly?"
 
         self.answer = raw_input("Your answer: ")
+
         while self.answer.lower() != "incorrectly":
             print "Incorrect answer, try again."
             self.answer = raw_input("Your answer: ")
@@ -248,6 +279,7 @@ class Hall(Room):
         print "the poor have it, the rich need it, and if you eat it, you'll die?"
 
         self.answer = raw_input("Your answer: ")
+
         while self.answer.lower() != "nothing":
             print "Incorrect answer, try again."
             self.answer = raw_input("Your answer: ")
@@ -277,6 +309,7 @@ class Armory(Room):
             print "If you have me, you want to share me. If you share me, you haven't got me. What am I?"
 
             self.answer_table = raw_input("Your answer: ")
+
             while self.answer_table != "secret":
                 if self.answer_table.lower() == "quit":
                     break
@@ -301,6 +334,7 @@ class Armory(Room):
         print "Take off my skin - I won't cry, but you will! What am I?"
 
         self.answer_door = raw_input("Your answer: ")
+
         while self.answer_door.lower() != "onion":
             if self.answer_door.lower() == "quit":
                 break
@@ -329,6 +363,7 @@ class Lounge(Room):
             print "What is at the end of a rainbow?"
 
             self.answer_wardrobe = raw_input("Your answer: ")
+
             while self.answer_wardrobe.lower() != "w":
                 if self.answer_wardrobe.lower() == "quit":
                     break
@@ -345,7 +380,7 @@ class Lounge(Room):
                 Lounge.unlocked_wardrobe = True
 
         else:
-            print "You already opened the wardrobe lel."
+            print "You already opened the wardrobe."
 
     def unlockDoor(self):
         print "You're presented with another computer lock. You se bloody fingerprints all over it."
@@ -355,6 +390,7 @@ class Lounge(Room):
         print "What occurs once in every minute, twice in every moment, yet never in a thousand years?"
 
         self.answer_door = raw_input("Your answer: ")
+
         while self.answer_door.lower() != "m":
             if self.answer_door.lower() == "quit":
                 break
@@ -381,6 +417,7 @@ class FinalHall(Room):
         print "What kind of room has no doors or windows?"
 
         self.answer = raw_input("Your answer: ")
+
         while self.answer.lower() != "mushroom":
             print "Incorrect answer, try again."
             self.answer = raw_input("Your answer: ")
