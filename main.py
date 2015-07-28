@@ -28,9 +28,6 @@ class Game(object):
                 print "P.S: Once you enter a room, you can't go back!"
                 print ""
 
-            elif self.input.lower() == "skip":
-                room.room_name = "Armory"
-
             else:
                 print "Your command makes no sense."
 
