@@ -2,7 +2,6 @@ class Game(object):
 
     def __init__(self, player_name):
         self.player = Player(player_name)
-        self.death = False
         self.playing()
 
     def playing(self):
