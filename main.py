@@ -151,23 +151,23 @@ class Room(object):
 
     def description(self, room_name):
         if self.room_name == "Hall":
-            self.hall = Hall(self.room_name)
+            self.hall = Hall()
             self.hall.description()
 
         elif self.room_name == "Second hall":
-            self.sec_hall = SecondHall(self.room_name)
+            self.sec_hall = SecondHall()
             self.sec_hall.description()
 
         elif self.room_name == "Armory":
-            self.armory = Armory(self.room_name)
+            self.armory = Armory()
             self.armory.description()
 
         elif self.room_name == "Lounge":
-            self.lounge = Lounge(self.room_name)
+            self.lounge = Lounge()
             self.lounge.description()
 
         elif self.room_name == "Final hall":
-            self.final_hall = FinalHall(self.room_name)
+            self.final_hall = FinalHall()
             self.final_hall.description()
 
     def unlockables(self, room_name):
@@ -198,7 +198,7 @@ class Room(object):
         elif self.room_name == "Final hall":
             self.final_hall.unlockBossDoor()
 
-class SecondHall(Room):
+class SecondHall(object):
 
     def description(self):
         print "It's dark, you only see flashing sign above the door to your left."
@@ -220,7 +220,7 @@ class SecondHall(Room):
 
         room.room_name = "Armory"
 
-class Hall(Room):
+class Hall(object):
 
     def description(self):
         print "You're in a dark hallway. Your back is pressed against some rubble"
@@ -245,7 +245,7 @@ class Hall(Room):
 
         room.room_name = "Second hall"
 
-class Armory(Room):
+class Armory(object):
 
     unlocked_drawer = False
     unlocked_chest = False
@@ -304,7 +304,7 @@ class Armory(Room):
             print "You find yourself in another room."
             room.room_name = "Lounge"
 
-class Lounge(Room):
+class Lounge(object):
 
     unlocked_wardrobe = False
 
@@ -360,7 +360,7 @@ class Lounge(Room):
             print "You find yourself in another room."
             room.room_name = "Final hall"
 
-class FinalHall(Room):
+class FinalHall(object):
 
     def description(self):
         print "You've come to another hall. There's a big door to your left."
