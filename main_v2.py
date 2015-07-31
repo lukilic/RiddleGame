@@ -127,38 +127,59 @@ class Player(object):
             print "You currently have: "
             for i in range(len(self.inventory)):
                 print self.inventory[i]
+def main():
+    player_name = raw_input("Enter player name: ")
+    player = Player(player_name)
 
-player_name = raw_input("Enter player name: ")
-player = Player(player_name)
+    print "You wake up. It seems your spaceship is on some sort of lockdown."
+    print "You stand up knowing you have to find out what happened."
+    print "Type 'help' to see list of available commands"
 
-print "You wake up. It seems your spaceship is on some sort of lockdown."
-print "You stand up knowing you have to find out what happened."
-print "Type 'help' to see list of available commands"
+    hall_descript = "You're in a dark hallway. Your back is pressed against some rubble" \
+                    "\nthat sealed the way back. The only way to go is forward but some kind" \
+                    "\nof door stands in your way."
 
-hall_descript = "You're in a dark hallway. Your back is pressed against some rubble" \
-                "\nthat sealed the way back. The only way to go is forward but some kind" \
-                "\nof door stands in your way."
-
-hall_unlocks = {"door": "You try to open the door, but it's locked. Little computer screen shows up"
+    hall_unlocks = {"door": "You try to open the door, but it's locked. Little computer screen shows up"
                         "\nand it shows the following text:"
                         "\n\nWhat is greater than God, more evil than the devil,"
                         "\nthe poor have it, the rich need it, and if you eat it, you'll die?"}
 
-hall_solutions = {"door": "nothing"}
+    hall_solutions = {"door": "nothing"}
 
-room = Room("Hall", hall_descript, hall_unlocks, hall_solutions)
-game_stage = playing(room, player)
+    room = Room("Hall", hall_descript, hall_unlocks, hall_solutions)
+    playing(room, player)
 
-print "The computer prints 'Correct' and the door opens."
-print "You find yourself in another room."
+    print "The computer prints 'Correct' and the door opens."
+    print "You find yourself in another room."
 
-second_hall_descript = "It's dark, you only see flashing sign above the door to your left." \
+    second_hall_descript = "It's dark, you only see flashing sign above the door to your left." \
                        "\nIt says 'Armory'."
 
-second_hall_unlocks = {"door": "Another locked door, another little screen popping out. It reads:"
+    second_hall_unlocks = {"door": "Another locked door, another little screen popping out. It reads:"
                                 "\n\nWhich word in the dictionary is spelled incorrectly?"}
 
-second_hall_solutions = {"door": "incorrectly"}
+    second_hall_solutions = {"door": "incorrectly"}
 
-room = Room("Second hall", second_hall_descript, second_hall_unlocks, second_hall_solutions)
-game_stage_2 = playing(room, player)
+    room = Room("Second hall", second_hall_descript, second_hall_unlocks, second_hall_solutions)
+    playing(room, player)
+
+    print "The computer prints 'Correct' and the door opens."
+    print "You find yourself in another room."
+
+    armory_descript = "It's trashed. Chunks of metal everywhere. You see a woman's body lying on the ground." \
+                      "\nThere's note next to her. You pick it up. It reads: 'Get rekt fokin feggit xDDD'." \
+                      "\nYou can't understand what it means, but it might come in handy later," \
+                      "\nso you put it in your pocket.\nYou see a table on your left and a door to your right."
+
+    armory_unlocks = {"table": "You naively try to open table drawer, but to no avail."
+                               "\nYet another computer screen pops out and it challenges you with the following riddle:"
+                               "\n\nIf you have me, you want to share me. If you share me, you haven't got me. What am I?",
+                      "door": "You approach the door, surprisingly, it's locked. A small screen shows yet again."
+                              "\n\nTake off my skin - I won't cry, but you will! What am I?"}
+
+    armory_solutions = {"table": "secret", "door": "onion"}
+
+    room = Room("Armory", armory_descript, armory_unlocks, armory_solutions)
+    playing(room, player)
+
+main()
